@@ -1,6 +1,6 @@
-# Nillion Operations and Blind Compute Demo
+# Nillion Operations and Blind Compute Game
 
-This is a demo of the JavaScript Nillion Client working with payments connected to nillion-devnet or the Nillion Testnet.
+This is a Rock-Paper-Scissor Game Made with Nillion
 
 Notes
 
@@ -63,7 +63,7 @@ To connect your blind app to the Nillion Testnet, replace .env values with the [
 ## Clone this repo
 
 ```
-git clone https://github.com/NillionNetwork/cra-nillion.git
+git clone https://github.com/pranav2564/Blind-Computation-Game-Nillion.git
 cd cra-nillion
 ```
 
@@ -92,8 +92,3 @@ Install dependencies and start the demo project.
 npm install
 npm start
 ```
-
-## Check out the demos
-
-- Open http://localhost:8080 to see the "Nillion Operations" page where you can connect with different user key and node keys, store secrets, update secrets, retrieve secrets, and store programs
-- Open http://localhost:8080/compute to see the "Nillion Blind Computation Demo" page where you can run a full blind computation flow.
