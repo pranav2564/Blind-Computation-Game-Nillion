@@ -15,6 +15,12 @@ import PayButton from './PayButton';
 
 type SecretDataType = 'SecretBlob' | 'SecretInteger';
 
+const choices = [
+  'rock',
+  'paper',
+  'scissors',
+];
+
 interface SecretFormProps {
   onNewStoredSecret: (data: any) => void;
   secretName: string;
@@ -25,6 +31,8 @@ interface SecretFormProps {
   customSecretName?: boolean;
   hidePermissions?: boolean;
   itemName?: string;
+  randomValue?: number;
+  gameOn?: boolean;
   defaultUserWithComputePermissions?: string;
   defaultProgramIdForComputePermissions?: string;
 }
@@ -37,6 +45,8 @@ const SecretForm: React.FC<SecretFormProps> = ({
   isLoading = false,
   customSecretName = false,
   secretType,
+  gameOn,
+  randomValue,
   hidePermissions = false,
   itemName = 'secret',
   defaultUserWithComputePermissions = '',
@@ -44,6 +54,7 @@ const SecretForm: React.FC<SecretFormProps> = ({
 }) => {
   const [secretNameFromForm, setSecretNameFromForm] = useState(secretName);
   const [secret, setSecret] = useState('');
+  const [isDis, setIsDis] = useState(false);
   const [quote, setQuote] = useState<any | null>(null);
   const [paymentReceipt, setPaymentReceipt] = useState<any | null>(null);
   const [storedSecrets, setStoredSecrets] = useState<any | null>([]);
@@ -85,6 +96,19 @@ const SecretForm: React.FC<SecretFormProps> = ({
     setStoredSecrets(null);
     setLoadingQuote(false);
     setLoadingPayment(false);
+  };
+
+  const handleClick = (choice : string) => {
+
+    if (choice === 'rock') {
+      setSecret("0");
+    }
+    else if (choice === 'paper') {
+      setSecret("1");
+    }
+    else if (choice === 'scissors') {
+      setSecret("2");
+    }
   };
 
   const handleGetQuoteSubmit = async (e: React.FormEvent) => {
@@ -181,7 +205,7 @@ const SecretForm: React.FC<SecretFormProps> = ({
     }
   };
 
-  return isLoading ? (
+  return  isLoading ? (
     'Storing secret...'
   ) : (
     <Box component="form" onSubmit={handleGetQuoteSubmit} sx={{ mt: 2 }}>
@@ -199,17 +223,49 @@ const SecretForm: React.FC<SecretFormProps> = ({
           margin="normal"
         />
       )}
+
+      {gameOn && (
+        <>
+        <h1 className="text-4xl font-bold mb-8">Rock Paper Scissors</h1>
+      <div className="flex space-x-4 mb-8">
+        {choices.map((choice) => (
+          <button
+            key={choice}
+            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+            onClick={() => handleClick(choice)}
+          >
+            {choice}
+          </button>
+        ))}
+      </div>
       <TextField
         label={`Set ${itemName} value`}
         type={secretType === 'SecretBlob' ? 'text' : 'number'}
         value={secret}
         onChange={(e) => setSecret(e.target.value)}
         required
-        disabled={isDisabled}
+        disabled={isDis}
         fullWidth
         variant="outlined"
         margin="normal"
       />
+      </>
+      )}
+
+      {!gameOn && (
+
+      <TextField
+        label={`Set ${itemName} value`}
+        type={secretType === 'SecretBlob' ? 'text' : 'number'}
+        value={randomValue}
+        onChange={(e) => setSecret(randomValue?.toLocaleString() || e.target.value)}
+        required
+        disabled={isDis}
+        fullWidth
+        variant="outlined"
+        margin="normal"
+      />
+    )}
 
       {!hidePermissions && (
         <TextField

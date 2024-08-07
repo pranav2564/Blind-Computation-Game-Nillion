@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import GenerateUserKey from './nillion/components/GenerateUserKey';
 import CreateClient from './nillion/components/CreateClient';
 import * as nillion from '@nillion/client-web';
@@ -23,11 +23,6 @@ export default function Main() {
   const [programId, setProgramId] = useState<string | null>(null);
   const [additionalComputeValues, setAdditionalComputeValues] = useState<NadaValues | null>(null);
   const [computeResult, setComputeResult] = useState<string | null>(null);
-  const [randomValue,setRandomValue] = useState<number | undefined >(undefined);
-
-  const memoizedRandomValue = useMemo(() => {
-    return Math.floor(Math.random() * 3);
-  }, []);
 
   useEffect(() => {
     if (userkey && client) {
@@ -37,11 +32,6 @@ export default function Main() {
       setAdditionalComputeValues(additionalComputeValues);
     }
   }, [userkey, client]);
-
-  useEffect(() => {
-    setRandomValue(memoizedRandomValue);
-  } , [memoizedRandomValue]);
-
 
   const interpretResult = (result: string) => {
     switch (result) {
@@ -59,14 +49,14 @@ export default function Main() {
   return (
     <div>
       <h1>Rock Paper Scissors on Nillion</h1>
-      <p>Connect to Nillion with a user key, then follow the steps to play rock, paper, scissors using nillion's blind computation</p>
+      <p>Connect to Nillion with a user key, then follow the steps to play rock, paper, scissors.</p>
       <ConnectionInfo client={client} userkey={userkey} />
 
       <h1>1. Connect to Nillion Client {client && ' ✅'}</h1>
       <GenerateUserKey setUserKey={setUserKey} />
       {userkey && <CreateClient userKey={userkey} setClient={setClient} />}
       
-      <h1>2. Store Program for Nillion's blind computation {programId && ' ✅'}</h1>
+      <h1>2. Store Program {programId && ' ✅'}</h1>
       {client && (
         <StoreProgram
           nillionClient={client}
@@ -85,7 +75,6 @@ export default function Main() {
             nillionClient={client}
             secretType="SecretInteger"
             isLoading={false}
-            gameOn={true}
             itemName=""
             hidePermissions
             defaultUserWithComputePermissions={userId}
@@ -99,7 +88,6 @@ export default function Main() {
             nillionClient={client}
             secretType="SecretInteger"
             isLoading={false}
-            randomValue={randomValue}
             itemName=""
             hidePermissions
             defaultUserWithComputePermissions={userId}

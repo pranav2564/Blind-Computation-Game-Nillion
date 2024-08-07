@@ -130,7 +130,8 @@ const StoreProgram: React.FC<StoreProgramProps> = ({
   return (
     <Box component="form" onSubmit={handleGetQuoteSubmit} sx={{ mt: 2 }}>
       <p>
-        Select a program to store. Get a quote, then pay to store the program.
+        Now, store the rock, paper, scissors program on Nillion. This program will handle the game logic.
+        Get a quote, then pay and store the program.
       </p>
       <br />
       <FormControl fullWidth sx={{ mb: 2 }}>
@@ -154,13 +155,13 @@ const StoreProgram: React.FC<StoreProgramProps> = ({
         </Select>
       </FormControl>
 
-      {programCode && (
+      {/* {programCode && (
         <Box my={2} p={2} bgcolor="#f5f5f5" borderRadius={4}>
           <SyntaxHighlighter language="python" style={docco}>
             {programCode}
           </SyntaxHighlighter>
         </Box>
-      )}
+      )} */}
 
       <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
         Get Quote{' '}

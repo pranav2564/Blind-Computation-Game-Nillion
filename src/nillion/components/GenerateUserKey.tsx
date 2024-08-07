@@ -39,6 +39,7 @@ const GenerateUserKey: React.FC<GenerateUserKeyProps> = ({
     <Box my={2}>
       <h2>Connect with User Key</h2>
       <p>
+        Before, playing the game you need to connect to Nillion with a user key.
         Generate a user key and connect with the user key. Using a seed is
         recommended because it creates a deterministic key pair, so that the
         user key's corresponding user id is predictable.
